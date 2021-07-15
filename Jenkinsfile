@@ -6,19 +6,19 @@ pipeline {
 
         stage('build') {
             steps {
-               echo 'Building Application.....344'
+               echo 'Building Application.....344jhasds'
             }
         }
 
         stage('test') {
             steps {
-               echo 'Testing Application.....244'
+               echo 'Testing Application.....244adf'
             }
         }
 
         stage('deploy') {
             steps {
-               echo 'Deploying Application.....144'
+               echo 'Deploying Application.....144dfaffad'
             }
         }
 
