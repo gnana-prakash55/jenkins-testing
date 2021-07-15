@@ -6,19 +6,19 @@ pipeline {
 
         stage('build') {
             steps {
-               echo 'Building Application.....344jhasds'
+               echo 'Building Application.....344jhasdskdln'
             }
         }
 
         stage('test') {
             steps {
-               echo 'Testing Application.....244adf'
+               echo 'Testing Application.....244adfsdfl'
             }
         }
 
         stage('deploy') {
             steps {
-               echo 'Deploying Application.....144dfaffad'
+               echo 'Deploying Application.....144dfaffadsdfl'
             }
         }
 
