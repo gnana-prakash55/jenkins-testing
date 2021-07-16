@@ -6,7 +6,10 @@ pipeline {
 
         stage('build') {
             steps {
-              nodejs('Node-14.17.2') { sh 'npm run build' }
+              nodejs('Node-14.17.2') { 
+                  sh 'npm run build' 
+                  sh 'npm start'
+                }
             }
         }
 
