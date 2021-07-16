@@ -6,19 +6,19 @@ pipeline {
 
         stage('build') {
             steps {
-               echo 'Building Application.....Step 100'
+               sh 'npm run build'
             }
         }
 
         stage('test') {
             steps {
-               echo 'Testing Application.....Step 200'
+               sh 'npm run test'
             }
         }
 
         stage('deploy') {
             steps {
-               echo 'Deploying Application.....Step 300'
+               sh 'npm start'
             }
         }
 
