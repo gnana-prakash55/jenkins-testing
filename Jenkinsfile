@@ -1,29 +1,24 @@
 pipeline {
 
-    agent {
-        docker {
-            image 'node:lts-buster-slim'
-            args '-p 3000:3000'
-        }
-    }
+    agent any
 
      stages {
 
         stage('build') {
             steps {
-               sh 'npm run build'
+              nodejs('Node-14.17.2') { sh 'npm run build' }
             }
         }
 
         stage('test') {
             steps {
-               sh 'npm run test'
+                nodejs('Node-14.17.2') { sh 'npm run test' }
             }
         }
 
         stage('deploy') {
             steps {
-               sh 'npm start'
+                nodejs('Node-14.17.2') { sh 'npm start' }
             }
         }
 
