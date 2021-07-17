@@ -7,6 +7,6 @@ app.get('/', (req, res) => {
   res.send('Hello Azure!!!');
 });
 
-app.listen(config.port, () => {
+app.listen(config.port,'0.0.0.0', () => {
   console.log(`Server started on port ${config.port}`);
 });
