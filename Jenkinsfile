@@ -2,39 +2,41 @@ pipeline {
 
     agent any
 
-     stages {
+    environment {
+        registry = 'node-app-demo'
+    }
 
-        stage('build') {
-            steps {
-              nodejs('Node-14.17.2') { sh 'npm run build' }
-            }
-        }
 
-        stage('stop existing') {
+    stages {
+
+        stage('Creating docker image') {
             steps {
-              nodejs('Node-14.17.2') { 
-                  sh 'pm2 stop app.js' 
-                  sh 'pm2 delete app.js'
-                  sh 'pm2 save --force'
+                script {
+                    docker.build registry
                 }
             }
         }
 
-        stage('test') {
+        stage('Stoping running container') {
             steps {
-                nodejs('Node-14.17.2') { sh 'npm run test' }
+                sh "docker rm node-app-demo-server -f"
             }
         }
 
-        stage('deploy') {
+        stage('Running latest container') {
             steps {
-                nodejs('Node-14.17.2') { 
-                    sh 'pm2 start app.js' 
-                    sh 'pm2 save'
-                }
+                sh "docker run -d -p 3000:3000 --name node-app-demo-server node-app-demo"
             }
         }
 
     }
 
-}
+    post {
+        success {
+            sh "docker image prune -f"
+        }
+
+        failure {
+            sh "docker run -d -p 3000:3000 --name node-app-demo-server node-app-demo"
+        }
+    }
