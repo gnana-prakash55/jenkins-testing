@@ -1,43 +1,32 @@
 pipeline {
-
     agent any
-
-    environment {
-        registry = 'node-app-demo'
-    }
-
-
     stages {
-
-        stage('Creating docker image') {
+         stage('Stopping Existing App') {
             steps {
-                script {
-                    docker.build registry
-                }
+                sh "pm2 kill app"
             }
+
         }
 
-        stage('Stoping running container') {
+        stage('Building App') {
             steps {
-                sh "docker rm node-app-demo-server -f"
+                sh "npm run build"
             }
+
         }
 
-        stage('Running latest container') {
+        stage('Test App') {
             steps {
-                sh "docker run -d -p 3000:3000 --name node-app-demo-server node-app-demo"
+                sh "npm run test"
             }
+
         }
 
-    }
+        stage('Run App') {
+            steps {
+                sh "pm2 start app.js"
+            }
 
-    post {
-        success {
-            sh "docker image prune -f"
-        }
-
-        failure {
-            sh "docker run -d -p 3000:3000 --name node-app-demo-server node-app-demo"
         }
     }
 }
