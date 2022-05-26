@@ -1,13 +1,6 @@
 pipeline {
     agent any
     stages {
-         stage('Stopping Existing App') {
-            steps {
-                sh "pm2 delete app"
-            }
-
-        }
-
         stage('Building App') {
             steps {
                 sh "npm run build"
@@ -24,7 +17,7 @@ pipeline {
 
         stage('Run App') {
             steps {
-                sh "pm2 start app.js"
+                sh "pm2 restart app"
             }
 
         }
