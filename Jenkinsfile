@@ -3,7 +3,7 @@ pipeline {
     stages {
          stage('Stopping Existing App') {
             steps {
-                sh "pm2 kill app"
+                sh "pm2 delete app"
             }
 
         }
